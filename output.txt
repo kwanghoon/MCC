@@ -1,0 +1,674 @@
+./examples/Done.mc
+Up to date
+[0;1m[0;1;4m
+PARSED SOURCE PROGRAM
+[0;1m[0m
+File: ./examples/Done.mc
+Process: Main
+[0;1mdone[0m
+
+[0;1m[0;1;4m
+SIMULATION
+[0;1m[0m
+  done
+(done — no more reductions)
+./examples/Buffer.mc
+Up to date
+[0;1m[0;1;4m
+PARSED SOURCE PROGRAM
+[0;1m[0m
+File: ./examples/Buffer.mc
+Process: Buffer
+[0;1mcase[0m self [0;1mof[0m
+{ Put(user : [0;36mUser[0;36;1m![0;36mReplyPut[0m) [0;1m▸[0m
+  { user[0;1m![0mReplyPut(self) 
+  [0;1m|[0m [0;1mcase[0m self [0;1mof[0m
+    { Get(user : [0;36mUser[0;36;1m![0;36mReplyGet[0m) [0;1m▸[0m { user[0;1m![0mReplyGet(self) [0;1m|[0m Buffer(self) } } } }
+
+Process: Main
+[0;1mnew[0m buffer : [0;36mBuffer[0;36;1m?[0;36m1[0m [0;1min[0m
+[0;1mnew[0m user : [0;36mUser[0;36;1m?[0;36m1[0m [0;1min[0m { Buffer(buffer) [0;1m|[0m User(user, buffer) }
+
+Process: User
+{ buffer[0;1m![0mPut(self) 
+[0;1m|[0m [0;1mcase[0m self [0;1mof[0m
+  { ReplyPut(buffer : [0;36mBuffer[0;36;1m![0;36mGet[0m) [0;1m▸[0m
+    { buffer[0;1m![0mGet(self) 
+    [0;1m|[0m [0;1mcase[0m self [0;1mof[0m
+      { ReplyGet(buffer : [0;36mBuffer[0;36;1m![0;36mPut[0m) [0;1m▸[0m User(self, buffer) } } } }
+
+[0;1m[0;1;4m
+SIMULATION
+[0;1m[0m
+  (νbuffer#0:Buffer)(νuser#1:User)Buffer(buffer#0) | User(user#1, buffer#0)
+1. R-DEF  Buffer
+  (νbuffer#0:Buffer)(νuser#1:User)User(user#1, buffer#0) | buffer#0?{Put(user) ▸ …}
+2. R-DEF  User
+  (νbuffer#0:Buffer)(νuser#1:User)buffer#0?{Put(user) ▸ …} | buffer#0!Put(user#1) | user#1?{ReplyPut(buffer) ▸ …}
+3. R-READ buffer#0!Put
+  (νbuffer#0:Buffer)(νuser#1:User)user#1?{ReplyPut(buffer) ▸ …} | user#1!ReplyPut(buffer#0) | buffer#0?{Get(user) ▸ …}
+4. R-READ user#1!ReplyPut
+  (νbuffer#0:Buffer)(νuser#1:User)buffer#0?{Get(user) ▸ …} | buffer#0!Get(user#1) | user#1?{ReplyGet(buffer) ▸ …}
+5. R-READ buffer#0!Get
+  (νbuffer#0:Buffer)(νuser#1:User)user#1?{ReplyGet(buffer) ▸ …} | user#1!ReplyGet(buffer#0) | Buffer(buffer#0)
+6. R-READ user#1!ReplyGet
+  (νbuffer#0:Buffer)(νuser#1:User)Buffer(buffer#0) | User(user#1, buffer#0)
+7. R-DEF  Buffer
+  (νbuffer#0:Buffer)(νuser#1:User)User(user#1, buffer#0) | buffer#0?{Put(user) ▸ …}
+8. R-DEF  User
+  (νbuffer#0:Buffer)(νuser#1:User)buffer#0?{Put(user) ▸ …} | buffer#0!Put(user#1) | user#1?{ReplyPut(buffer) ▸ …}
+9. R-READ buffer#0!Put
+  (νbuffer#0:Buffer)(νuser#1:User)user#1?{ReplyPut(buffer) ▸ …} | user#1!ReplyPut(buffer#0) | buffer#0?{Get(user) ▸ …}
+10. R-READ user#1!ReplyPut
+  (νbuffer#0:Buffer)(νuser#1:User)buffer#0?{Get(user) ▸ …} | buffer#0!Get(user#1) | user#1?{ReplyGet(buffer) ▸ …}
+11. R-READ buffer#0!Get
+  (νbuffer#0:Buffer)(νuser#1:User)user#1?{ReplyGet(buffer) ▸ …} | user#1!ReplyGet(buffer#0) | Buffer(buffer#0)
+12. R-READ user#1!ReplyGet
+  (νbuffer#0:Buffer)(νuser#1:User)Buffer(buffer#0) | User(user#1, buffer#0)
+13. R-DEF  Buffer
+  (νbuffer#0:Buffer)(νuser#1:User)User(user#1, buffer#0) | buffer#0?{Put(user) ▸ …}
+14. R-DEF  User
+  (νbuffer#0:Buffer)(νuser#1:User)buffer#0?{Put(user) ▸ …} | buffer#0!Put(user#1) | user#1?{ReplyPut(buffer) ▸ …}
+15. R-READ buffer#0!Put
+  (νbuffer#0:Buffer)(νuser#1:User)user#1?{ReplyPut(buffer) ▸ …} | user#1!ReplyPut(buffer#0) | buffer#0?{Get(user) ▸ …}
+16. R-READ user#1!ReplyPut
+  (νbuffer#0:Buffer)(νuser#1:User)buffer#0?{Get(user) ▸ …} | buffer#0!Get(user#1) | user#1?{ReplyGet(buffer) ▸ …}
+17. R-READ buffer#0!Get
+  (νbuffer#0:Buffer)(νuser#1:User)user#1?{ReplyGet(buffer) ▸ …} | user#1!ReplyGet(buffer#0) | Buffer(buffer#0)
+18. R-READ user#1!ReplyGet
+  (νbuffer#0:Buffer)(νuser#1:User)Buffer(buffer#0) | User(user#1, buffer#0)
+19. R-DEF  Buffer
+  (νbuffer#0:Buffer)(νuser#1:User)User(user#1, buffer#0) | buffer#0?{Put(user) ▸ …}
+20. R-DEF  User
+  (νbuffer#0:Buffer)(νuser#1:User)buffer#0?{Put(user) ▸ …} | buffer#0!Put(user#1) | user#1?{ReplyPut(buffer) ▸ …}
+21. R-READ buffer#0!Put
+  (νbuffer#0:Buffer)(νuser#1:User)user#1?{ReplyPut(buffer) ▸ …} | user#1!ReplyPut(buffer#0) | buffer#0?{Get(user) ▸ …}
+22. R-READ user#1!ReplyPut
+  (νbuffer#0:Buffer)(νuser#1:User)buffer#0?{Get(user) ▸ …} | buffer#0!Get(user#1) | user#1?{ReplyGet(buffer) ▸ …}
+23. R-READ buffer#0!Get
+  (νbuffer#0:Buffer)(νuser#1:User)user#1?{ReplyGet(buffer) ▸ …} | user#1!ReplyGet(buffer#0) | Buffer(buffer#0)
+24. R-READ user#1!ReplyGet
+  (νbuffer#0:Buffer)(νuser#1:User)Buffer(buffer#0) | User(user#1, buffer#0)
+25. R-DEF  Buffer
+  (νbuffer#0:Buffer)(νuser#1:User)User(user#1, buffer#0) | buffer#0?{Put(user) ▸ …}
+26. R-DEF  User
+  (νbuffer#0:Buffer)(νuser#1:User)buffer#0?{Put(user) ▸ …} | buffer#0!Put(user#1) | user#1?{ReplyPut(buffer) ▸ …}
+27. R-READ buffer#0!Put
+  (νbuffer#0:Buffer)(νuser#1:User)user#1?{ReplyPut(buffer) ▸ …} | user#1!ReplyPut(buffer#0) | buffer#0?{Get(user) ▸ …}
+28. R-READ user#1!ReplyPut
+  (νbuffer#0:Buffer)(νuser#1:User)buffer#0?{Get(user) ▸ …} | buffer#0!Get(user#1) | user#1?{ReplyGet(buffer) ▸ …}
+29. R-READ buffer#0!Get
+  (νbuffer#0:Buffer)(νuser#1:User)user#1?{ReplyGet(buffer) ▸ …} | user#1!ReplyGet(buffer#0) | Buffer(buffer#0)
+30. R-READ user#1!ReplyGet
+  (νbuffer#0:Buffer)(νuser#1:User)Buffer(buffer#0) | User(user#1, buffer#0)
+31. R-DEF  Buffer
+  (νbuffer#0:Buffer)(νuser#1:User)User(user#1, buffer#0) | buffer#0?{Put(user) ▸ …}
+32. R-DEF  User
+  (νbuffer#0:Buffer)(νuser#1:User)buffer#0?{Put(user) ▸ …} | buffer#0!Put(user#1) | user#1?{ReplyPut(buffer) ▸ …}
+33. R-READ buffer#0!Put
+  (νbuffer#0:Buffer)(νuser#1:User)user#1?{ReplyPut(buffer) ▸ …} | user#1!ReplyPut(buffer#0) | buffer#0?{Get(user) ▸ …}
+34. R-READ user#1!ReplyPut
+  (νbuffer#0:Buffer)(νuser#1:User)buffer#0?{Get(user) ▸ …} | buffer#0!Get(user#1) | user#1?{ReplyGet(buffer) ▸ …}
+35. R-READ buffer#0!Get
+  (νbuffer#0:Buffer)(νuser#1:User)user#1?{ReplyGet(buffer) ▸ …} | user#1!ReplyGet(buffer#0) | Buffer(buffer#0)
+36. R-READ user#1!ReplyGet
+  (νbuffer#0:Buffer)(νuser#1:User)Buffer(buffer#0) | User(user#1, buffer#0)
+37. R-DEF  Buffer
+  (νbuffer#0:Buffer)(νuser#1:User)User(user#1, buffer#0) | buffer#0?{Put(user) ▸ …}
+38. R-DEF  User
+  (νbuffer#0:Buffer)(νuser#1:User)buffer#0?{Put(user) ▸ …} | buffer#0!Put(user#1) | user#1?{ReplyPut(buffer) ▸ …}
+39. R-READ buffer#0!Put
+  (νbuffer#0:Buffer)(νuser#1:User)user#1?{ReplyPut(buffer) ▸ …} | user#1!ReplyPut(buffer#0) | buffer#0?{Get(user) ▸ …}
+40. R-READ user#1!ReplyPut
+  (νbuffer#0:Buffer)(νuser#1:User)buffer#0?{Get(user) ▸ …} | buffer#0!Get(user#1) | user#1?{ReplyGet(buffer) ▸ …}
+41. R-READ buffer#0!Get
+  (νbuffer#0:Buffer)(νuser#1:User)user#1?{ReplyGet(buffer) ▸ …} | user#1!ReplyGet(buffer#0) | Buffer(buffer#0)
+42. R-READ user#1!ReplyGet
+  (νbuffer#0:Buffer)(νuser#1:User)Buffer(buffer#0) | User(user#1, buffer#0)
+43. R-DEF  Buffer
+  (νbuffer#0:Buffer)(νuser#1:User)User(user#1, buffer#0) | buffer#0?{Put(user) ▸ …}
+44. R-DEF  User
+  (νbuffer#0:Buffer)(νuser#1:User)buffer#0?{Put(user) ▸ …} | buffer#0!Put(user#1) | user#1?{ReplyPut(buffer) ▸ …}
+45. R-READ buffer#0!Put
+  (νbuffer#0:Buffer)(νuser#1:User)user#1?{ReplyPut(buffer) ▸ …} | user#1!ReplyPut(buffer#0) | buffer#0?{Get(user) ▸ …}
+46. R-READ user#1!ReplyPut
+  (νbuffer#0:Buffer)(νuser#1:User)buffer#0?{Get(user) ▸ …} | buffer#0!Get(user#1) | user#1?{ReplyGet(buffer) ▸ …}
+47. R-READ buffer#0!Get
+  (νbuffer#0:Buffer)(νuser#1:User)user#1?{ReplyGet(buffer) ▸ …} | user#1!ReplyGet(buffer#0) | Buffer(buffer#0)
+48. R-READ user#1!ReplyGet
+  (νbuffer#0:Buffer)(νuser#1:User)Buffer(buffer#0) | User(user#1, buffer#0)
+49. R-DEF  Buffer
+  (νbuffer#0:Buffer)(νuser#1:User)User(user#1, buffer#0) | buffer#0?{Put(user) ▸ …}
+50. R-DEF  User
+  (νbuffer#0:Buffer)(νuser#1:User)buffer#0?{Put(user) ▸ …} | buffer#0!Put(user#1) | user#1?{ReplyPut(buffer) ▸ …}
+51. R-READ buffer#0!Put
+  (νbuffer#0:Buffer)(νuser#1:User)user#1?{ReplyPut(buffer) ▸ …} | user#1!ReplyPut(buffer#0) | buffer#0?{Get(user) ▸ …}
+52. R-READ user#1!ReplyPut
+  (νbuffer#0:Buffer)(νuser#1:User)buffer#0?{Get(user) ▸ …} | buffer#0!Get(user#1) | user#1?{ReplyGet(buffer) ▸ …}
+53. R-READ buffer#0!Get
+  (νbuffer#0:Buffer)(νuser#1:User)user#1?{ReplyGet(buffer) ▸ …} | user#1!ReplyGet(buffer#0) | Buffer(buffer#0)
+54. R-READ user#1!ReplyGet
+  (νbuffer#0:Buffer)(νuser#1:User)Buffer(buffer#0) | User(user#1, buffer#0)
+55. R-DEF  Buffer
+  (νbuffer#0:Buffer)(νuser#1:User)User(user#1, buffer#0) | buffer#0?{Put(user) ▸ …}
+56. R-DEF  User
+  (νbuffer#0:Buffer)(νuser#1:User)buffer#0?{Put(user) ▸ …} | buffer#0!Put(user#1) | user#1?{ReplyPut(buffer) ▸ …}
+57. R-READ buffer#0!Put
+  (νbuffer#0:Buffer)(νuser#1:User)user#1?{ReplyPut(buffer) ▸ …} | user#1!ReplyPut(buffer#0) | buffer#0?{Get(user) ▸ …}
+58. R-READ user#1!ReplyPut
+  (νbuffer#0:Buffer)(νuser#1:User)buffer#0?{Get(user) ▸ …} | buffer#0!Get(user#1) | user#1?{ReplyGet(buffer) ▸ …}
+59. R-READ buffer#0!Get
+  (νbuffer#0:Buffer)(νuser#1:User)user#1?{ReplyGet(buffer) ▸ …} | user#1!ReplyGet(buffer#0) | Buffer(buffer#0)
+60. R-READ user#1!ReplyGet
+  (νbuffer#0:Buffer)(νuser#1:User)Buffer(buffer#0) | User(user#1, buffer#0)
+61. R-DEF  Buffer
+  (νbuffer#0:Buffer)(νuser#1:User)User(user#1, buffer#0) | buffer#0?{Put(user) ▸ …}
+62. R-DEF  User
+  (νbuffer#0:Buffer)(νuser#1:User)buffer#0?{Put(user) ▸ …} | buffer#0!Put(user#1) | user#1?{ReplyPut(buffer) ▸ …}
+63. R-READ buffer#0!Put
+  (νbuffer#0:Buffer)(νuser#1:User)user#1?{ReplyPut(buffer) ▸ …} | user#1!ReplyPut(buffer#0) | buffer#0?{Get(user) ▸ …}
+64. R-READ user#1!ReplyPut
+  (νbuffer#0:Buffer)(νuser#1:User)buffer#0?{Get(user) ▸ …} | buffer#0!Get(user#1) | user#1?{ReplyGet(buffer) ▸ …}
+65. R-READ buffer#0!Get
+  (νbuffer#0:Buffer)(νuser#1:User)user#1?{ReplyGet(buffer) ▸ …} | user#1!ReplyGet(buffer#0) | Buffer(buffer#0)
+66. R-READ user#1!ReplyGet
+  (νbuffer#0:Buffer)(νuser#1:User)Buffer(buffer#0) | User(user#1, buffer#0)
+67. R-DEF  Buffer
+  (νbuffer#0:Buffer)(νuser#1:User)User(user#1, buffer#0) | buffer#0?{Put(user) ▸ …}
+68. R-DEF  User
+  (νbuffer#0:Buffer)(νuser#1:User)buffer#0?{Put(user) ▸ …} | buffer#0!Put(user#1) | user#1?{ReplyPut(buffer) ▸ …}
+69. R-READ buffer#0!Put
+  (νbuffer#0:Buffer)(νuser#1:User)user#1?{ReplyPut(buffer) ▸ …} | user#1!ReplyPut(buffer#0) | buffer#0?{Get(user) ▸ …}
+70. R-READ user#1!ReplyPut
+  (νbuffer#0:Buffer)(νuser#1:User)buffer#0?{Get(user) ▸ …} | buffer#0!Get(user#1) | user#1?{ReplyGet(buffer) ▸ …}
+71. R-READ buffer#0!Get
+  (νbuffer#0:Buffer)(νuser#1:User)user#1?{ReplyGet(buffer) ▸ …} | user#1!ReplyGet(buffer#0) | Buffer(buffer#0)
+72. R-READ user#1!ReplyGet
+  (νbuffer#0:Buffer)(νuser#1:User)Buffer(buffer#0) | User(user#1, buffer#0)
+73. R-DEF  Buffer
+  (νbuffer#0:Buffer)(νuser#1:User)User(user#1, buffer#0) | buffer#0?{Put(user) ▸ …}
+74. R-DEF  User
+  (νbuffer#0:Buffer)(νuser#1:User)buffer#0?{Put(user) ▸ …} | buffer#0!Put(user#1) | user#1?{ReplyPut(buffer) ▸ …}
+75. R-READ buffer#0!Put
+  (νbuffer#0:Buffer)(νuser#1:User)user#1?{ReplyPut(buffer) ▸ …} | user#1!ReplyPut(buffer#0) | buffer#0?{Get(user) ▸ …}
+76. R-READ user#1!ReplyPut
+  (νbuffer#0:Buffer)(νuser#1:User)buffer#0?{Get(user) ▸ …} | buffer#0!Get(user#1) | user#1?{ReplyGet(buffer) ▸ …}
+77. R-READ buffer#0!Get
+  (νbuffer#0:Buffer)(νuser#1:User)user#1?{ReplyGet(buffer) ▸ …} | user#1!ReplyGet(buffer#0) | Buffer(buffer#0)
+78. R-READ user#1!ReplyGet
+  (νbuffer#0:Buffer)(νuser#1:User)Buffer(buffer#0) | User(user#1, buffer#0)
+79. R-DEF  Buffer
+  (νbuffer#0:Buffer)(νuser#1:User)User(user#1, buffer#0) | buffer#0?{Put(user) ▸ …}
+80. R-DEF  User
+  (νbuffer#0:Buffer)(νuser#1:User)buffer#0?{Put(user) ▸ …} | buffer#0!Put(user#1) | user#1?{ReplyPut(buffer) ▸ …}
+81. R-READ buffer#0!Put
+  (νbuffer#0:Buffer)(νuser#1:User)user#1?{ReplyPut(buffer) ▸ …} | user#1!ReplyPut(buffer#0) | buffer#0?{Get(user) ▸ …}
+82. R-READ user#1!ReplyPut
+  (νbuffer#0:Buffer)(νuser#1:User)buffer#0?{Get(user) ▸ …} | buffer#0!Get(user#1) | user#1?{ReplyGet(buffer) ▸ …}
+83. R-READ buffer#0!Get
+  (νbuffer#0:Buffer)(νuser#1:User)user#1?{ReplyGet(buffer) ▸ …} | user#1!ReplyGet(buffer#0) | Buffer(buffer#0)
+84. R-READ user#1!ReplyGet
+  (νbuffer#0:Buffer)(νuser#1:User)Buffer(buffer#0) | User(user#1, buffer#0)
+85. R-DEF  Buffer
+  (νbuffer#0:Buffer)(νuser#1:User)User(user#1, buffer#0) | buffer#0?{Put(user) ▸ …}
+86. R-DEF  User
+  (νbuffer#0:Buffer)(νuser#1:User)buffer#0?{Put(user) ▸ …} | buffer#0!Put(user#1) | user#1?{ReplyPut(buffer) ▸ …}
+87. R-READ buffer#0!Put
+  (νbuffer#0:Buffer)(νuser#1:User)user#1?{ReplyPut(buffer) ▸ …} | user#1!ReplyPut(buffer#0) | buffer#0?{Get(user) ▸ …}
+88. R-READ user#1!ReplyPut
+  (νbuffer#0:Buffer)(νuser#1:User)buffer#0?{Get(user) ▸ …} | buffer#0!Get(user#1) | user#1?{ReplyGet(buffer) ▸ …}
+89. R-READ buffer#0!Get
+  (νbuffer#0:Buffer)(νuser#1:User)user#1?{ReplyGet(buffer) ▸ …} | user#1!ReplyGet(buffer#0) | Buffer(buffer#0)
+90. R-READ user#1!ReplyGet
+  (νbuffer#0:Buffer)(νuser#1:User)Buffer(buffer#0) | User(user#1, buffer#0)
+91. R-DEF  Buffer
+  (νbuffer#0:Buffer)(νuser#1:User)User(user#1, buffer#0) | buffer#0?{Put(user) ▸ …}
+92. R-DEF  User
+  (νbuffer#0:Buffer)(νuser#1:User)buffer#0?{Put(user) ▸ …} | buffer#0!Put(user#1) | user#1?{ReplyPut(buffer) ▸ …}
+93. R-READ buffer#0!Put
+  (νbuffer#0:Buffer)(νuser#1:User)user#1?{ReplyPut(buffer) ▸ …} | user#1!ReplyPut(buffer#0) | buffer#0?{Get(user) ▸ …}
+94. R-READ user#1!ReplyPut
+  (νbuffer#0:Buffer)(νuser#1:User)buffer#0?{Get(user) ▸ …} | buffer#0!Get(user#1) | user#1?{ReplyGet(buffer) ▸ …}
+95. R-READ buffer#0!Get
+  (νbuffer#0:Buffer)(νuser#1:User)user#1?{ReplyGet(buffer) ▸ …} | user#1!ReplyGet(buffer#0) | Buffer(buffer#0)
+96. R-READ user#1!ReplyGet
+  (νbuffer#0:Buffer)(νuser#1:User)Buffer(buffer#0) | User(user#1, buffer#0)
+97. R-DEF  Buffer
+  (νbuffer#0:Buffer)(νuser#1:User)User(user#1, buffer#0) | buffer#0?{Put(user) ▸ …}
+98. R-DEF  User
+  (νbuffer#0:Buffer)(νuser#1:User)buffer#0?{Put(user) ▸ …} | buffer#0!Put(user#1) | user#1?{ReplyPut(buffer) ▸ …}
+99. R-READ buffer#0!Put
+  (νbuffer#0:Buffer)(νuser#1:User)user#1?{ReplyPut(buffer) ▸ …} | user#1!ReplyPut(buffer#0) | buffer#0?{Get(user) ▸ …}
+100. R-READ user#1!ReplyPut
+  (νbuffer#0:Buffer)(νuser#1:User)buffer#0?{Get(user) ▸ …} | buffer#0!Get(user#1) | user#1?{ReplyGet(buffer) ▸ …}
+(max steps reached)
+./examples/Merge.mc
+Up to date
+[0;1m[0;1;4m
+PARSED SOURCE PROGRAM
+[0;1m[0m
+File: ./examples/Merge.mc
+Process: Main
+[0;1mnew[0m mail : [0;36mA[0;36;1m?[0;36m1[0m [0;1min[0m
+[0;1mnew[0m random : [0;36mB[0;36;1m?[0;36m1[0m [0;1min[0m
+{ mail[0;1m![0mB 
+[0;1m|[0m [0;1mcase[0m random [0;1mof[0m
+  { [0;1mfree[0m [0;1m▸[0m
+    [0;1mcase[0m mail [0;1mof[0m
+    { A [0;1m▸[0m [0;1mcase[0m mail [0;1mof[0m { [0;1mfree[0m [0;1m▸[0m [0;1mdone[0m } [0;1m&[0m B [0;1m▸[0m [0;1mcase[0m mail [0;1mof[0m { [0;1mfree[0m [0;1m▸[0m [0;1mdone[0m } } 
+  [0;1m&[0m [0;1mfree[0m [0;1m▸[0m
+    [0;1mcase[0m mail [0;1mof[0m
+    { B [0;1m▸[0m [0;1mcase[0m mail [0;1mof[0m { [0;1mfree[0m [0;1m▸[0m [0;1mdone[0m } [0;1m&[0m C [0;1m▸[0m [0;1mcase[0m mail [0;1mof[0m { [0;1mfree[0m [0;1m▸[0m [0;1mdone[0m } } } }
+
+[0;1m[0;1;4m
+SIMULATION
+[0;1m[0m
+  (νmail#0:A)(νrandom#1:B)mail#0!B | random#1?{free ▸ … & free ▸ …}
+1. R-FREE random#1
+  (νmail#0:A)mail#0!B | mail#0?{A ▸ … & B ▸ …}
+2. R-READ mail#0!B
+  (νmail#0:A)mail#0?{free ▸ …}
+3. R-FREE mail#0
+  done
+(done — no more reductions)
+./examples/PrintServer.mc
+Up to date
+[0;1m[0;1;4m
+PARSED SOURCE PROGRAM
+[0;1m[0m
+File: ./examples/PrintServer.mc
+Process: Client
+[0;1mnew[0m random : [0;36mChoice[0;36;1m?[0;36m1[0m [0;1min[0m
+[0;1mcase[0m random [0;1mof[0m
+{ [0;1mfree[0m [0;1m▸[0m [0;1mdone[0m [0;1m&[0m [0;1mfree[0m [0;1m▸[0m { server[0;1m![0mPrint [0;1m|[0m Client(server) } }
+
+Process: Server
+[0;1mcase[0m self [0;1mof[0m
+{ [0;1mfree[0m [0;1m▸[0m [0;1mdone[0m [0;1m&[0m Print [0;1m▸[0m Server(self) }
+
+[0;1m[0;1;4m
+SIMULATION
+[0;1m[0m
+Process 'Main' not found.
+./examples/Omega.mc
+Up to date
+[0;1m[0;1;4m
+PARSED SOURCE PROGRAM
+[0;1m[0m
+File: ./examples/Omega.mc
+Process: Omega
+Omega
+
+[0;1m[0;1;4m
+SIMULATION
+[0;1m[0m
+Process 'Main' not found.
+./examples/Lock.mc
+Up to date
+[0;1m[0;1;4m
+PARSED SOURCE PROGRAM
+[0;1m[0m
+File: ./examples/Lock.mc
+Process: Lock
+[0;1mcase[0m self [0;1mof[0m
+{ [0;1mfree[0m [0;1m▸[0m [0;1mdone[0m 
+[0;1m&[0m Acquire(user : [0;36mUser[0;36;1m![0;36mReply[0m) [0;1m▸[0m
+  { user[0;1m![0mReply(self) [0;1m|[0m [0;1mcase[0m self [0;1mof[0m { Release [0;1m▸[0m Lock(self) } } 
+[0;1m&[0m Release [0;1m▸[0m [0;1mcase[0m self [0;1mof[0m { [0;1mfail[0m "free lock released" } }
+
+Process: Main
+[0;1mnew[0m lock : [0;36mLock[0;36;1m?[0;36m1[0m [0;1min[0m
+[0;1mnew[0m user₁ : [0;36mUser[0;36;1m?[0;36m1[0m [0;1min[0m
+[0;1mnew[0m user₂ : [0;36mUser[0;36;1m?[0;36m1[0m [0;1min[0m { Lock(lock) [0;1m|[0m User(user₁, lock) [0;1m|[0m User(user₂, lock) }
+
+Process: User
+{ lock[0;1m![0mAcquire(self) 
+[0;1m|[0m [0;1mcase[0m self [0;1mof[0m
+  { Reply(lock : [0;36mLock[0;36;1m![0;36mRelease[0m) [0;1m▸[0m
+    { lock[0;1m![0mRelease [0;1m|[0m [0;1mcase[0m self [0;1mof[0m { [0;1mfree[0m [0;1m▸[0m [0;1mdone[0m } } } }
+
+[0;1m[0;1;4m
+SIMULATION
+[0;1m[0m
+  (νlock#0:Lock)(νuser₁#1:User)(νuser₂#2:User)Lock(lock#0) | User(user₁#1, lock#0) | User(user₂#2, lock#0)
+1. R-DEF  Lock
+  (νlock#0:Lock)(νuser₁#1:User)(νuser₂#2:User)User(user₁#1, lock#0) | User(user₂#2, lock#0) | lock#0?{free ▸ … & Acquire(user) ▸ … & Release ▸ …}
+2. R-DEF  User
+  (νlock#0:Lock)(νuser₁#1:User)(νuser₂#2:User)User(user₂#2, lock#0) | lock#0?{free ▸ … & Acquire(user) ▸ … & Release ▸ …} | lock#0!Acquire(user₁#1) | user₁#1?{Reply(lock) ▸ …}
+3. R-READ lock#0!Acquire
+  (νlock#0:Lock)(νuser₁#1:User)(νuser₂#2:User)User(user₂#2, lock#0) | user₁#1?{Reply(lock) ▸ …} | user₁#1!Reply(lock#0) | lock#0?{Release ▸ …}
+4. R-READ user₁#1!Reply
+  (νlock#0:Lock)(νuser₁#1:User)(νuser₂#2:User)User(user₂#2, lock#0) | lock#0?{Release ▸ …} | lock#0!Release | user₁#1?{free ▸ …}
+5. R-READ lock#0!Release
+  (νlock#0:Lock)(νuser₁#1:User)(νuser₂#2:User)User(user₂#2, lock#0) | user₁#1?{free ▸ …} | Lock(lock#0)
+6. R-FREE user₁#1
+  (νlock#0:Lock)(νuser₂#2:User)User(user₂#2, lock#0) | Lock(lock#0)
+7. R-DEF  User
+  (νlock#0:Lock)(νuser₂#2:User)Lock(lock#0) | lock#0!Acquire(user₂#2) | user₂#2?{Reply(lock) ▸ …}
+8. R-DEF  Lock
+  (νlock#0:Lock)(νuser₂#2:User)lock#0!Acquire(user₂#2) | user₂#2?{Reply(lock) ▸ …} | lock#0?{free ▸ … & Acquire(user) ▸ … & Release ▸ …}
+9. R-READ lock#0!Acquire
+  (νlock#0:Lock)(νuser₂#2:User)user₂#2?{Reply(lock) ▸ …} | user₂#2!Reply(lock#0) | lock#0?{Release ▸ …}
+10. R-READ user₂#2!Reply
+  (νlock#0:Lock)(νuser₂#2:User)lock#0?{Release ▸ …} | lock#0!Release | user₂#2?{free ▸ …}
+11. R-READ lock#0!Release
+  (νlock#0:Lock)(νuser₂#2:User)user₂#2?{free ▸ …} | Lock(lock#0)
+12. R-FREE user₂#2
+  (νlock#0:Lock)Lock(lock#0)
+13. R-DEF  Lock
+  (νlock#0:Lock)lock#0?{free ▸ … & Acquire(user) ▸ … & Release ▸ …}
+14. R-FREE lock#0
+  done
+(done — no more reductions)
+./examples/Future.mc
+Up to date
+[0;1m[0;1;4m
+PARSED SOURCE PROGRAM
+[0;1m[0m
+File: ./examples/Future.mc
+Process: Future
+[0;1mcase[0m self [0;1mof[0m
+{ Put(x : [0;36mValue[0;36;1m![0;36m1[0m) [0;1m▸[0m ResolvedFuture(self, x) }
+
+Process: Main
+[0;1mnew[0m future : [0;36mFuture[0;36;1m?[0;36m1[0m [0;1min[0m
+[0;1mnew[0m v : [0;36mValue[0;36;1m?[0;36m1[0m [0;1min[0m
+[0;1mnew[0m user₁ : [0;36mUser[0;36;1m?[0;36m1[0m [0;1min[0m
+[0;1mnew[0m user₂ : [0;36mUser[0;36;1m?[0;36m1[0m [0;1min[0m
+{ [0;1mcase[0m v [0;1mof[0m
+  { [0;1mfree[0m [0;1m▸[0m [0;1mdone[0m } 
+[0;1m|[0m Future(future) 
+[0;1m|[0m future[0;1m![0mPut(v) 
+[0;1m|[0m User(user₁, future) 
+[0;1m|[0m User(user₂, future) }
+
+Process: ResolvedFuture
+[0;1mcase[0m self [0;1mof[0m
+{ Put(x : [0;36mValue[0;36;1m![0;36m1[0m) [0;1m▸[0m [0;1mcase[0m self [0;1mof[0m { [0;1mfail[0m "future resolved twice" } 
+[0;1m&[0m Get(user : [0;36mUser[0;36;1m![0;36mReply[0m) [0;1m▸[0m { user[0;1m![0mReply(x) [0;1m|[0m ResolvedFuture(self, x) } 
+[0;1m&[0m [0;1mfree[0m [0;1m▸[0m [0;1mdone[0m }
+
+Process: User
+{ future[0;1m![0mGet(self) 
+[0;1m|[0m [0;1mcase[0m self [0;1mof[0m
+  { Reply(x : [0;36mValue[0;36;1m![0;36m1[0m) [0;1m▸[0m [0;1mcase[0m self [0;1mof[0m { [0;1mfree[0m [0;1m▸[0m [0;1mdone[0m } } }
+
+[0;1m[0;1;4m
+SIMULATION
+[0;1m[0m
+  (νfuture#0:Future)(νv#1:Value)(νuser₁#2:User)(νuser₂#3:User)v#1?{free ▸ …} | Future(future#0) | future#0!Put(v#1) | User(user₁#2, future#0) | User(user₂#3, future#0)
+1. R-DEF  Future
+  (νfuture#0:Future)(νv#1:Value)(νuser₁#2:User)(νuser₂#3:User)v#1?{free ▸ …} | future#0!Put(v#1) | User(user₁#2, future#0) | User(user₂#3, future#0) | future#0?{Put(x) ▸ …}
+2. R-READ future#0!Put
+  (νfuture#0:Future)(νv#1:Value)(νuser₁#2:User)(νuser₂#3:User)v#1?{free ▸ …} | User(user₁#2, future#0) | User(user₂#3, future#0) | ResolvedFuture(future#0, v#1)
+3. R-DEF  User
+  (νfuture#0:Future)(νv#1:Value)(νuser₁#2:User)(νuser₂#3:User)v#1?{free ▸ …} | User(user₂#3, future#0) | ResolvedFuture(future#0, v#1) | future#0!Get(user₁#2) | user₁#2?{Reply(x) ▸ …}
+4. R-DEF  User
+  (νfuture#0:Future)(νv#1:Value)(νuser₁#2:User)(νuser₂#3:User)v#1?{free ▸ …} | ResolvedFuture(future#0, v#1) | future#0!Get(user₁#2) | user₁#2?{Reply(x) ▸ …} | future#0!Get(user₂#3) | user₂#3?{Reply(x) ▸ …}
+5. R-DEF  ResolvedFuture
+  (νfuture#0:Future)(νv#1:Value)(νuser₁#2:User)(νuser₂#3:User)v#1?{free ▸ …} | future#0!Get(user₁#2) | user₁#2?{Reply(x) ▸ …} | future#0!Get(user₂#3) | user₂#3?{Reply(x) ▸ …} | future#0?{Put(x) ▸ … & Get(user) ▸ … & free ▸ …}
+6. R-READ future#0!Get
+  (νfuture#0:Future)(νv#1:Value)(νuser₁#2:User)(νuser₂#3:User)v#1?{free ▸ …} | user₁#2?{Reply(x) ▸ …} | future#0!Get(user₂#3) | user₂#3?{Reply(x) ▸ …} | user₁#2!Reply(v#1) | ResolvedFuture(future#0, v#1)
+7. R-READ user₁#2!Reply
+  (νfuture#0:Future)(νv#1:Value)(νuser₁#2:User)(νuser₂#3:User)v#1?{free ▸ …} | future#0!Get(user₂#3) | user₂#3?{Reply(x) ▸ …} | ResolvedFuture(future#0, v#1) | user₁#2?{free ▸ …}
+8. R-FREE user₁#2
+  (νfuture#0:Future)(νv#1:Value)(νuser₂#3:User)v#1?{free ▸ …} | future#0!Get(user₂#3) | user₂#3?{Reply(x) ▸ …} | ResolvedFuture(future#0, v#1)
+9. R-DEF  ResolvedFuture
+  (νfuture#0:Future)(νv#1:Value)(νuser₂#3:User)v#1?{free ▸ …} | future#0!Get(user₂#3) | user₂#3?{Reply(x) ▸ …} | future#0?{Put(x) ▸ … & Get(user) ▸ … & free ▸ …}
+10. R-READ future#0!Get
+  (νfuture#0:Future)(νv#1:Value)(νuser₂#3:User)v#1?{free ▸ …} | user₂#3?{Reply(x) ▸ …} | user₂#3!Reply(v#1) | ResolvedFuture(future#0, v#1)
+11. R-READ user₂#3!Reply
+  (νfuture#0:Future)(νv#1:Value)(νuser₂#3:User)v#1?{free ▸ …} | ResolvedFuture(future#0, v#1) | user₂#3?{free ▸ …}
+12. R-FREE user₂#3
+  (νfuture#0:Future)(νv#1:Value)v#1?{free ▸ …} | ResolvedFuture(future#0, v#1)
+13. R-DEF  ResolvedFuture
+  (νfuture#0:Future)(νv#1:Value)v#1?{free ▸ …} | future#0?{Put(x) ▸ … & Get(user) ▸ … & free ▸ …}
+14. R-FREE future#0
+  (νv#1:Value)v#1?{free ▸ …}
+15. R-FREE v#1
+  done
+(done — no more reductions)
+./examples/LockTypeState.mc
+Up to date
+[0;1m[0;1;4m
+PARSED SOURCE PROGRAM
+[0;1m[0m
+File: ./examples/LockTypeState.mc
+Process: Lock
+[0;1mcase[0m self [0;1mof[0m
+{ FREE [0;1m▸[0m
+  [0;1mcase[0m self [0;1mof[0m
+  { [0;1mfree[0m [0;1m▸[0m [0;1mdone[0m 
+  [0;1m&[0m Acquire(user : [0;36mFuture[0;36;1m![0;36mReply[0m) [0;1m▸[0m
+    { user[0;1m![0mReply(self) [0;1m|[0m self[0;1m![0mBUSY [0;1m|[0m Lock(self) } 
+  [0;1m&[0m Release [0;1m▸[0m [0;1mcase[0m self [0;1mof[0m { [0;1mfail[0m "free lock released" } } 
+[0;1m&[0m BUSY [0;1m▸[0m [0;1mcase[0m self [0;1mof[0m { Release [0;1m▸[0m { self[0;1m![0mFREE [0;1m|[0m Lock(self) } } }
+
+Process: Main
+[0;1mnew[0m lock : [0;36mLock[0;36;1m?[0;36m1[0m [0;1min[0m
+{ Lock(lock) [0;1m|[0m lock[0;1m![0mFREE [0;1m|[0m User(lock) [0;1m|[0m User(lock) [0;1m|[0m User(lock) }
+
+Process: User
+[0;1mnew[0m future : [0;36mFuture[0;36;1m?[0;36m1[0m [0;1min[0m
+{ lock[0;1m![0mAcquire(future) 
+[0;1m|[0m [0;1mcase[0m future [0;1mof[0m
+  { Reply(lock : [0;36mLock[0;36;1m![0;36mRelease[0m) [0;1m▸[0m
+    { lock[0;1m![0mRelease [0;1m|[0m [0;1mcase[0m future [0;1mof[0m { [0;1mfree[0m [0;1m▸[0m [0;1mdone[0m } } } }
+
+[0;1m[0;1;4m
+SIMULATION
+[0;1m[0m
+  (νlock#0:Lock)Lock(lock#0) | lock#0!FREE | User(lock#0) | User(lock#0) | User(lock#0)
+1. R-DEF  Lock
+  (νlock#0:Lock)lock#0!FREE | User(lock#0) | User(lock#0) | User(lock#0) | lock#0?{FREE ▸ … & BUSY ▸ …}
+2. R-READ lock#0!FREE
+  (νlock#0:Lock)User(lock#0) | User(lock#0) | User(lock#0) | lock#0?{free ▸ … & Acquire(user) ▸ … & Release ▸ …}
+3. R-DEF  User
+  (νlock#0:Lock)(νfuture#1:Future)User(lock#0) | User(lock#0) | lock#0?{free ▸ … & Acquire(user) ▸ … & Release ▸ …} | lock#0!Acquire(future#1) | future#1?{Reply(lock) ▸ …}
+4. R-READ lock#0!Acquire
+  (νlock#0:Lock)(νfuture#1:Future)User(lock#0) | User(lock#0) | future#1?{Reply(lock) ▸ …} | future#1!Reply(lock#0) | lock#0!BUSY | Lock(lock#0)
+5. R-READ future#1!Reply
+  (νlock#0:Lock)(νfuture#1:Future)User(lock#0) | User(lock#0) | lock#0!BUSY | Lock(lock#0) | lock#0!Release | future#1?{free ▸ …}
+6. R-FREE future#1
+  (νlock#0:Lock)User(lock#0) | User(lock#0) | lock#0!BUSY | Lock(lock#0) | lock#0!Release
+7. R-DEF  User
+  (νlock#0:Lock)(νfuture#2:Future)User(lock#0) | lock#0!BUSY | Lock(lock#0) | lock#0!Release | lock#0!Acquire(future#2) | future#2?{Reply(lock) ▸ …}
+8. R-DEF  User
+  (νlock#0:Lock)(νfuture#2:Future)(νfuture#3:Future)lock#0!BUSY | Lock(lock#0) | lock#0!Release | lock#0!Acquire(future#2) | future#2?{Reply(lock) ▸ …} | lock#0!Acquire(future#3) | future#3?{Reply(lock) ▸ …}
+9. R-DEF  Lock
+  (νlock#0:Lock)(νfuture#2:Future)(νfuture#3:Future)lock#0!BUSY | lock#0!Release | lock#0!Acquire(future#2) | future#2?{Reply(lock) ▸ …} | lock#0!Acquire(future#3) | future#3?{Reply(lock) ▸ …} | lock#0?{FREE ▸ … & BUSY ▸ …}
+10. R-READ lock#0!BUSY
+  (νlock#0:Lock)(νfuture#2:Future)(νfuture#3:Future)lock#0!Release | lock#0!Acquire(future#2) | future#2?{Reply(lock) ▸ …} | lock#0!Acquire(future#3) | future#3?{Reply(lock) ▸ …} | lock#0?{Release ▸ …}
+11. R-READ lock#0!Release
+  (νlock#0:Lock)(νfuture#2:Future)(νfuture#3:Future)lock#0!Acquire(future#2) | future#2?{Reply(lock) ▸ …} | lock#0!Acquire(future#3) | future#3?{Reply(lock) ▸ …} | lock#0!FREE | Lock(lock#0)
+12. R-DEF  Lock
+  (νlock#0:Lock)(νfuture#2:Future)(νfuture#3:Future)lock#0!Acquire(future#2) | future#2?{Reply(lock) ▸ …} | lock#0!Acquire(future#3) | future#3?{Reply(lock) ▸ …} | lock#0!FREE | lock#0?{FREE ▸ … & BUSY ▸ …}
+13. R-READ lock#0!FREE
+  (νlock#0:Lock)(νfuture#2:Future)(νfuture#3:Future)lock#0!Acquire(future#2) | future#2?{Reply(lock) ▸ …} | lock#0!Acquire(future#3) | future#3?{Reply(lock) ▸ …} | lock#0?{free ▸ … & Acquire(user) ▸ … & Release ▸ …}
+14. R-READ lock#0!Acquire
+  (νlock#0:Lock)(νfuture#2:Future)(νfuture#3:Future)future#2?{Reply(lock) ▸ …} | lock#0!Acquire(future#3) | future#3?{Reply(lock) ▸ …} | future#2!Reply(lock#0) | lock#0!BUSY | Lock(lock#0)
+15. R-READ future#2!Reply
+  (νlock#0:Lock)(νfuture#2:Future)(νfuture#3:Future)lock#0!Acquire(future#3) | future#3?{Reply(lock) ▸ …} | lock#0!BUSY | Lock(lock#0) | lock#0!Release | future#2?{free ▸ …}
+16. R-FREE future#2
+  (νlock#0:Lock)(νfuture#3:Future)lock#0!Acquire(future#3) | future#3?{Reply(lock) ▸ …} | lock#0!BUSY | Lock(lock#0) | lock#0!Release
+17. R-DEF  Lock
+  (νlock#0:Lock)(νfuture#3:Future)lock#0!Acquire(future#3) | future#3?{Reply(lock) ▸ …} | lock#0!BUSY | lock#0!Release | lock#0?{FREE ▸ … & BUSY ▸ …}
+18. R-READ lock#0!BUSY
+  (νlock#0:Lock)(νfuture#3:Future)lock#0!Acquire(future#3) | future#3?{Reply(lock) ▸ …} | lock#0!Release | lock#0?{Release ▸ …}
+19. R-READ lock#0!Release
+  (νlock#0:Lock)(νfuture#3:Future)lock#0!Acquire(future#3) | future#3?{Reply(lock) ▸ …} | lock#0!FREE | Lock(lock#0)
+20. R-DEF  Lock
+  (νlock#0:Lock)(νfuture#3:Future)lock#0!Acquire(future#3) | future#3?{Reply(lock) ▸ …} | lock#0!FREE | lock#0?{FREE ▸ … & BUSY ▸ …}
+21. R-READ lock#0!FREE
+  (νlock#0:Lock)(νfuture#3:Future)lock#0!Acquire(future#3) | future#3?{Reply(lock) ▸ …} | lock#0?{free ▸ … & Acquire(user) ▸ … & Release ▸ …}
+22. R-READ lock#0!Acquire
+  (νlock#0:Lock)(νfuture#3:Future)future#3?{Reply(lock) ▸ …} | future#3!Reply(lock#0) | lock#0!BUSY | Lock(lock#0)
+23. R-READ future#3!Reply
+  (νlock#0:Lock)(νfuture#3:Future)lock#0!BUSY | Lock(lock#0) | lock#0!Release | future#3?{free ▸ …}
+24. R-FREE future#3
+  (νlock#0:Lock)lock#0!BUSY | Lock(lock#0) | lock#0!Release
+25. R-DEF  Lock
+  (νlock#0:Lock)lock#0!BUSY | lock#0!Release | lock#0?{FREE ▸ … & BUSY ▸ …}
+26. R-READ lock#0!BUSY
+  (νlock#0:Lock)lock#0!Release | lock#0?{Release ▸ …}
+27. R-READ lock#0!Release
+  (νlock#0:Lock)lock#0!FREE | Lock(lock#0)
+28. R-DEF  Lock
+  (νlock#0:Lock)lock#0!FREE | lock#0?{FREE ▸ … & BUSY ▸ …}
+29. R-READ lock#0!FREE
+  (νlock#0:Lock)lock#0?{free ▸ … & Acquire(user) ▸ … & Release ▸ …}
+30. R-FREE lock#0
+  done
+(done — no more reductions)
+./examples/SubInterface.mc
+Up to date
+[0;1m[0;1;4m
+PARSED SOURCE PROGRAM
+[0;1m[0m
+File: ./examples/SubInterface.mc
+Process: C
+[0;1mcase[0m self [0;1mof[0m
+{ [0;1mfree[0m [0;1m▸[0m [0;1mdone[0m [0;1m&[0m M₁ [0;1m▸[0m C(self) [0;1m&[0m M₂ [0;1m▸[0m C(self) [0;1m&[0m M₃ [0;1m▸[0m C(self) }
+
+Process: Main
+[0;1mnew[0m a : [0;36mA[0;36;1m?[0;36m1[0m [0;1min[0m [0;1mnew[0m b : [0;36mB[0;36;1m?[0;36m1[0m [0;1min[0m { P(a) [0;1m|[0m C(a) [0;1m|[0m P(b) [0;1m|[0m C(b) }
+
+Process: P
+[0;1mnew[0m random : [0;36mRandom[0;36;1m?[0;36m1[0m [0;1min[0m
+[0;1mcase[0m random [0;1mof[0m
+{ [0;1mfree[0m [0;1m▸[0m [0;1mdone[0m [0;1m&[0m [0;1mfree[0m [0;1m▸[0m { self[0;1m![0mM₁ [0;1m|[0m P(self) } [0;1m&[0m [0;1mfree[0m [0;1m▸[0m { self[0;1m![0mM₂ [0;1m|[0m P(self) } }
+
+[0;1m[0;1;4m
+SIMULATION
+[0;1m[0m
+  (νa#0:A)(νb#1:B)P(a#0) | C(a#0) | P(b#1) | C(b#1)
+1. R-DEF  P
+  (νa#0:A)(νb#1:B)(νrandom#2:Random)C(a#0) | P(b#1) | C(b#1) | random#2?{free ▸ … & free ▸ … & free ▸ …}
+2. R-FREE random#2
+  (νa#0:A)(νb#1:B)C(a#0) | P(b#1) | C(b#1)
+3. R-DEF  C
+  (νa#0:A)(νb#1:B)P(b#1) | C(b#1) | a#0?{free ▸ … & M₁ ▸ … & M₂ ▸ … & M₃ ▸ …}
+4. R-FREE a#0
+  (νb#1:B)P(b#1) | C(b#1)
+5. R-DEF  P
+  (νb#1:B)(νrandom#3:Random)C(b#1) | random#3?{free ▸ … & free ▸ … & free ▸ …}
+6. R-FREE random#3
+  (νb#1:B)C(b#1)
+7. R-DEF  C
+  (νb#1:B)b#1?{free ▸ … & M₁ ▸ … & M₂ ▸ … & M₃ ▸ …}
+8. R-FREE b#1
+  done
+(done — no more reductions)
+./examples/PingPong.mc
+Up to date
+[0;1m[0;1;4m
+PARSED SOURCE PROGRAM
+[0;1m[0m
+File: ./examples/PingPong.mc
+Process: Ping
+{ ponger[0;1m![0mPing(self) 
+[0;1m|[0m [0;1mcase[0m self [0;1mof[0m
+  { Pong(ponger : [0;36mPonger[0;36;1m![0;36mPing[0m) [0;1m▸[0m Ping(self, ponger) } }
+
+Process: Pong
+[0;1mcase[0m self [0;1mof[0m
+{ [0;1mfree[0m [0;1m▸[0m [0;1mdone[0m 
+[0;1m&[0m Ping(pinger : [0;36mPinger[0;36;1m![0;36mPong[0m) [0;1m▸[0m { pinger[0;1m![0mPong(self) [0;1m|[0m Pong(self) } }
+
+[0;1m[0;1;4m
+SIMULATION
+[0;1m[0m
+Process 'Main' not found.
+./examples/LockFuture.mc
+Up to date
+[0;1m[0;1;4m
+PARSED SOURCE PROGRAM
+[0;1m[0m
+File: ./examples/LockFuture.mc
+Process: Lock
+[0;1mcase[0m self [0;1mof[0m
+{ [0;1mfree[0m [0;1m▸[0m [0;1mdone[0m 
+[0;1m&[0m Acquire(user : [0;36mFuture[0;36;1m![0;36mReply[0m) [0;1m▸[0m
+  { user[0;1m![0mReply(self) [0;1m|[0m [0;1mcase[0m self [0;1mof[0m { Release [0;1m▸[0m Lock(self) } } 
+[0;1m&[0m Release [0;1m▸[0m [0;1mcase[0m self [0;1mof[0m { [0;1mfail[0m "free lock released" } }
+
+Process: Main
+[0;1mnew[0m lock : [0;36mLock[0;36;1m?[0;36m1[0m [0;1min[0m { Lock(lock) [0;1m|[0m User(lock) [0;1m|[0m User(lock) [0;1m|[0m User(lock) }
+
+Process: User
+[0;1mnew[0m future : [0;36mFuture[0;36;1m?[0;36m1[0m [0;1min[0m
+{ lock[0;1m![0mAcquire(future) 
+[0;1m|[0m [0;1mcase[0m future [0;1mof[0m
+  { Reply(lock : [0;36mLock[0;36;1m![0;36mRelease[0m) [0;1m▸[0m
+    { lock[0;1m![0mRelease [0;1m|[0m [0;1mcase[0m future [0;1mof[0m { [0;1mfree[0m [0;1m▸[0m [0;1mdone[0m } } } }
+
+[0;1m[0;1;4m
+SIMULATION
+[0;1m[0m
+  (νlock#0:Lock)Lock(lock#0) | User(lock#0) | User(lock#0) | User(lock#0)
+1. R-DEF  Lock
+  (νlock#0:Lock)User(lock#0) | User(lock#0) | User(lock#0) | lock#0?{free ▸ … & Acquire(user) ▸ … & Release ▸ …}
+2. R-DEF  User
+  (νlock#0:Lock)(νfuture#1:Future)User(lock#0) | User(lock#0) | lock#0?{free ▸ … & Acquire(user) ▸ … & Release ▸ …} | lock#0!Acquire(future#1) | future#1?{Reply(lock) ▸ …}
+3. R-READ lock#0!Acquire
+  (νlock#0:Lock)(νfuture#1:Future)User(lock#0) | User(lock#0) | future#1?{Reply(lock) ▸ …} | future#1!Reply(lock#0) | lock#0?{Release ▸ …}
+4. R-READ future#1!Reply
+  (νlock#0:Lock)(νfuture#1:Future)User(lock#0) | User(lock#0) | lock#0?{Release ▸ …} | lock#0!Release | future#1?{free ▸ …}
+5. R-READ lock#0!Release
+  (νlock#0:Lock)(νfuture#1:Future)User(lock#0) | User(lock#0) | future#1?{free ▸ …} | Lock(lock#0)
+6. R-FREE future#1
+  (νlock#0:Lock)User(lock#0) | User(lock#0) | Lock(lock#0)
+7. R-DEF  User
+  (νlock#0:Lock)(νfuture#2:Future)User(lock#0) | Lock(lock#0) | lock#0!Acquire(future#2) | future#2?{Reply(lock) ▸ …}
+8. R-DEF  User
+  (νlock#0:Lock)(νfuture#2:Future)(νfuture#3:Future)Lock(lock#0) | lock#0!Acquire(future#2) | future#2?{Reply(lock) ▸ …} | lock#0!Acquire(future#3) | future#3?{Reply(lock) ▸ …}
+9. R-DEF  Lock
+  (νlock#0:Lock)(νfuture#2:Future)(νfuture#3:Future)lock#0!Acquire(future#2) | future#2?{Reply(lock) ▸ …} | lock#0!Acquire(future#3) | future#3?{Reply(lock) ▸ …} | lock#0?{free ▸ … & Acquire(user) ▸ … & Release ▸ …}
+10. R-READ lock#0!Acquire
+  (νlock#0:Lock)(νfuture#2:Future)(νfuture#3:Future)future#2?{Reply(lock) ▸ …} | lock#0!Acquire(future#3) | future#3?{Reply(lock) ▸ …} | future#2!Reply(lock#0) | lock#0?{Release ▸ …}
+11. R-READ future#2!Reply
+  (νlock#0:Lock)(νfuture#2:Future)(νfuture#3:Future)lock#0!Acquire(future#3) | future#3?{Reply(lock) ▸ …} | lock#0?{Release ▸ …} | lock#0!Release | future#2?{free ▸ …}
+12. R-READ lock#0!Release
+  (νlock#0:Lock)(νfuture#2:Future)(νfuture#3:Future)lock#0!Acquire(future#3) | future#3?{Reply(lock) ▸ …} | future#2?{free ▸ …} | Lock(lock#0)
+13. R-FREE future#2
+  (νlock#0:Lock)(νfuture#3:Future)lock#0!Acquire(future#3) | future#3?{Reply(lock) ▸ …} | Lock(lock#0)
+14. R-DEF  Lock
+  (νlock#0:Lock)(νfuture#3:Future)lock#0!Acquire(future#3) | future#3?{Reply(lock) ▸ …} | lock#0?{free ▸ … & Acquire(user) ▸ … & Release ▸ …}
+15. R-READ lock#0!Acquire
+  (νlock#0:Lock)(νfuture#3:Future)future#3?{Reply(lock) ▸ …} | future#3!Reply(lock#0) | lock#0?{Release ▸ …}
+16. R-READ future#3!Reply
+  (νlock#0:Lock)(νfuture#3:Future)lock#0?{Release ▸ …} | lock#0!Release | future#3?{free ▸ …}
+17. R-READ lock#0!Release
+  (νlock#0:Lock)(νfuture#3:Future)future#3?{free ▸ …} | Lock(lock#0)
+18. R-FREE future#3
+  (νlock#0:Lock)Lock(lock#0)
+19. R-DEF  Lock
+  (νlock#0:Lock)lock#0?{free ▸ … & Acquire(user) ▸ … & Release ▸ …}
+20. R-FREE lock#0
+  done
+(done — no more reductions)
+./examples/AmbiguousInput.mc
+Up to date
+[0;1m[0;1;4m
+PARSED SOURCE PROGRAM
+[0;1m[0m
+File: ./examples/AmbiguousInput.mc
+Process: Main
+[0;1mnew[0m u : [0;36mA[0;36;1m?[0;36m1[0m [0;1min[0m
+{ u[0;1m![0mA 
+[0;1m|[0m u[0;1m![0mB 
+[0;1m|[0m [0;1mcase[0m u [0;1mof[0m
+  { A [0;1m▸[0m [0;1mcase[0m u [0;1mof[0m { B [0;1m▸[0m [0;1mcase[0m u [0;1mof[0m { [0;1mfree[0m [0;1m▸[0m [0;1mdone[0m } } 
+  [0;1m&[0m C [0;1m▸[0m [0;1mcase[0m u [0;1mof[0m { B [0;1m▸[0m [0;1mcase[0m u [0;1mof[0m { [0;1mfree[0m [0;1m▸[0m [0;1mdone[0m } } } }
+
+[0;1m[0;1;4m
+SIMULATION
+[0;1m[0m
+  (νu#0:A)u#0!A | u#0!B | u#0?{A ▸ … & C ▸ …}
+1. R-READ u#0!A
+  (νu#0:A)u#0!B | u#0?{B ▸ …}
+2. R-READ u#0!B
+  (νu#0:A)u#0?{free ▸ …}
+3. R-FREE u#0
+  done
+(done — no more reductions)

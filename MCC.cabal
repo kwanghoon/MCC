@@ -36,8 +36,9 @@ executable mcc
                      Inference,
                      Constraints,
                      Validation,
-                     Presburger.Formula
-                     Interp
+                     Presburger.Formula,
+                     Interp,
+                     Simulation
   other-extensions:  CPP,
                      ForeignFunctionInterface
 
