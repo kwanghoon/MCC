@@ -109,6 +109,7 @@ type Interface = M.Map Tag [Type]
 data Type = None
           | Part IName Capability
           | Type IName Capability Pattern
+          deriving (Eq, Ord)
 
 --------------
 -- LANGUAGE --
@@ -121,12 +122,14 @@ data Process u
   | Parallel (Process u) (Process u)
   | New u IName (Process u)
   | Call PName [u]
+  deriving (Eq, Ord)
 
 data Guard u
   = Fail String
   | Free (Process u)
   | Select Tag [u] (Process u)
   | Choice (Guard u) (Guard u)
+  deriving (Eq, Ord)
 
 type O_Name = (Name, Type)
 

@@ -24,7 +24,7 @@ Flag Z3
 
 executable mcc
   main-is:           Main.hs
-  other-modules:     Aux,
+  other-modules:     Auxi,
                      Parser,
                      Lexer,
                      Language,
@@ -37,6 +37,7 @@ executable mcc
                      Constraints,
                      Validation,
                      Presburger.Formula
+                     Interp
   other-extensions:  CPP,
                      ForeignFunctionInterface
 

@@ -25,7 +25,8 @@ module Render
   , printWarning
   , printOK
   , printInterface
-  , printProcessDefinition )
+  , printProcessDefinition
+  , prettyProcess )
 where
 
 import Prelude hiding ((<>))
@@ -170,53 +171,52 @@ printInterface iname iface = PT.putDoc renderedInterface >> putStrLn ""
 -- PROCESSES --
 ---------------
 
+prettyProcess :: O_Process -> Document
+prettyProcess Done = keyword "done"
+prettyProcess (Output u tag vs) = prettyName u <> emark <> prettyTag tag <> prettyNames prettyName vs
+prettyProcess (Input u _ g) = prettyGuard u g
+prettyProcess p@(Parallel _ _) = align (sepembrace lbrace rbrace bar (map prettyProcess (collect p)))
+prettyProcess (New u _ p) = align (sep [keyword "new" <+> prettyBinding u <+> keyword "in", prettyProcess p])
+prettyProcess (Call pname vs) = identifier (show pname) <> prettyNames prettyName vs
+
+prettyNames :: (O_Name -> Document) -> [O_Name] -> Document
+prettyNames _ [] = emptyDoc
+prettyNames f vs = tupled (map f vs)
+
+prettyName :: O_Name -> Document
+prettyName = prettyJustName -- 기본은 이름만 출력, 필요시 full 버전으로 변경
+
+prettyJustName :: O_Name -> Document
+prettyJustName (u, _) = identifier (show u)
+
+prettyBinding :: O_Name -> Document
+prettyBinding (u, t) = identifier (show u) <+> colon <+> prettyType t
+
+prettyGuard :: O_Name -> O_Guard -> Document
+prettyGuard u g = align (vsep [renderedCase, sepembrace lbrace rbrace ampersand (map (align . prettySimpleGuard) gs)])
+  where
+    gs = collectGuards g
+    renderedCase :: Document
+    renderedCase = keyword "case" <+> prettyName u <+> keyword "of"
+
+prettySimpleGuard :: O_Guard -> Document
+prettySimpleGuard (Fail msg) = keyword "fail" <+> dquotes (constant msg)
+prettySimpleGuard (Free p) = sep [keyword "free" <+> triangle, prettyProcess p]
+prettySimpleGuard (Select tag xs p) = sep [prettyTag tag <> prettyNames prettyBinding xs <+> triangle, prettyProcess p]
+
+collectGuards :: O_Guard -> [O_Guard]
+collectGuards (Choice g₁ g₂) = collectGuards g₁ ++ collectGuards g₂
+collectGuards g = [g]
+
+collect :: O_Process -> [O_Process]
+collect (Parallel p q) = collect p ++ collect q
+collect p = [p]
+
 printProcessDefinition :: Bool -> PName -> ([O_Name], O_Process) -> IO ()
 printProcessDefinition full pname (xs, p) = PT.putDoc prettyDefinition >> putStrLn ""
   where
     prettyDefinition :: Document
-    prettyDefinition = nest 2 (vcat [keyword "process" <+> identifier (show pname) <> prettyNames prettyBinding xs <+> equals, prettyProcess p])
-
-    prettyProcess :: O_Process -> Document
-    prettyProcess Done = keyword "done"
-    prettyProcess (Output u tag vs) = prettyName u <> emark <> prettyTag tag <> prettyNames prettyName vs
-    prettyProcess (Input u _ g) = prettyGuard u g
-    prettyProcess p@(Parallel _ _) = align (sepembrace lbrace rbrace bar (map prettyProcess (collect p)))
-    prettyProcess (New u _ p) = align (sep [keyword "new" <+> prettyBinding u <+> keyword "in", prettyProcess p])
-    prettyProcess (Call pname vs) = identifier (show pname) <> prettyNames prettyName vs
-
-    prettyNames :: (O_Name -> Document) -> [O_Name] -> Document
-    prettyNames _ [] = emptyDoc
-    prettyNames f vs = tupled (map f vs)
-
-    prettyName :: O_Name -> Document
-    prettyName = if full then prettyBinding else prettyJustName
-
-    prettyJustName :: O_Name -> Document
-    prettyJustName (u, _) = identifier (show u)
-
-    prettyBinding :: O_Name -> Document
-    prettyBinding (u, t) = identifier (show u) <+> colon <+> prettyType t
-
-    prettyGuard :: O_Name -> O_Guard -> Document
-    prettyGuard u g = align (vsep [renderedCase, sepembrace lbrace rbrace ampersand (map (align . prettySimpleGuard) gs)])
-      where
-        gs = collectGuards g
-
-        renderedCase :: Document
-        renderedCase = keyword "case" <+> prettyName u <+> keyword "of"
-
-    prettySimpleGuard :: O_Guard -> Document
-    prettySimpleGuard (Fail msg) = keyword "fail" <+> dquotes (constant msg)
-    prettySimpleGuard (Free p) = sep [keyword "free" <+> triangle, prettyProcess p]
-    prettySimpleGuard (Select tag xs p) = sep [prettyTag tag <> prettyNames prettyBinding xs <+> triangle, prettyProcess p]
-
-    collectGuards :: O_Guard -> [O_Guard]
-    collectGuards (Choice g₁ g₂) = collectGuards g₁ ++ collectGuards g₂
-    collectGuards g = [g]
-
-    collect :: O_Process -> [O_Process]
-    collect (Parallel p q) = collect p ++ collect q
-    collect p = [p]
+    prettyDefinition = nest 2 (vcat [keyword "process" <+> identifier (show pname) <> prettyNames (if full then prettyBinding else prettyJustName) xs <+> equals, prettyProcess p])
 
 -----------------------------------
 -- AUXILIARY PRINTING OPERATIONS --

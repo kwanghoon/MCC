@@ -47,6 +47,11 @@ import qualified Data.Set as S
 import Data.Time (getCurrentTime, diffUTCTime)
 import System.FilePath.Posix (takeFileName)
 
+import qualified Interp
+import qualified Render
+import qualified Data.Text.Prettyprint.Doc.Render.Terminal as PT
+      
+
 putTitle :: String -> IO ()
 putTitle s = printTitle ("\n" ++ s ++ "\n")
 
@@ -100,9 +105,6 @@ main = do
 
       -- 인터프리터 실행 및 결과 출력
       putTitle "INTERPRETER RESULTS"
-      import qualified Interp
-      import qualified Render
-      import qualified Data.Text.Prettyprint.Doc.Render.Terminal as PT
       forM_ (M.toList qs') $ \(pname, (_, p)) -> do
         let results = Interp.interp p
             total = S.size results
