@@ -98,6 +98,21 @@ main = do
       stop <- getCurrentTime
       when logging (printOK (show (diffUTCTime stop start)))
 
+      -- 인터프리터 실행 및 결과 출력
+      putTitle "INTERPRETER RESULTS"
+      import qualified Interp
+      import qualified Render
+      import qualified Data.Text.Prettyprint.Doc.Render.Terminal as PT
+      forM_ (M.toList qs') $ \(pname, (_, p)) -> do
+        let results = Interp.interp p
+            total = S.size results
+            shown = take 10 $ S.toList results
+        putStrLn $ "Process: " ++ show pname ++ " (" ++ show total ++ " reachable states)"
+        forM_ shown $ \proc -> do
+          PT.putDoc (Render.prettyProcess proc)
+          putStrLn ""
+        when (total > 10) $ putStrLn $ "... (" ++ show (total - 10) ++ " more not shown)"
+
     handler :: [Flag] -> MyException -> IO ()
     handler args _ | Logging `elem` args = printWarning "FAILED"
     handler _ e = printWarning (show e)
