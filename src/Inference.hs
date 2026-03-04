@@ -28,7 +28,7 @@ import Control.Exception
 import Control.Monad (forM_, unless)
 import Debug.Trace (trace, traceM)
 
-import Aux
+import Auxi
 import Language
 import Pattern
 import Exceptions

@@ -19,7 +19,7 @@
 ╘═══════════════════════════════════════════════════════════════════╝
 -}
 
-module Aux where
+module Auxi where
 
 mapSnd :: (a -> b) -> [(c, a)] -> [(c, b)]
 mapSnd f = map (\(x, y) -> (x, f y))
