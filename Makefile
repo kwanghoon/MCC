@@ -2,7 +2,8 @@
 TESTS  = $(wildcard examples/*.mc)
 ERRORS = $(wildcard errors/*.mc)
 DEST   = padovani@pianeta.di.unito.it:public_html/Software/MCC/
-NAME   = dist/build/mcc/mcc
+#NAME   = dist/build/mcc/mcc
+NAME = ./dist-newstyle/build/x86_64-linux/ghc-9.6.7/MCC-1.1/x/mcc/build/mcc/mcc
 
 all:
 	cabal build

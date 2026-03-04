@@ -103,17 +103,30 @@ main = do
       stop <- getCurrentTime
       when logging (printOK (show (diffUTCTime stop start)))
 
+      -- 파싱된 소스 프로그램 출력
+      putTitle "PARSED SOURCE PROGRAM"
+      putStrLn $ "File: " ++ file
+      forM_ (M.toList qs') $ \(pname, (_, p)) -> do
+        putStrLn $ "Process: " ++ show pname
+        PT.putDoc (Render.prettyProcess p)
+        putStrLn ""
+        putStrLn ""
+
       -- 인터프리터 실행 및 결과 출력
       putTitle "INTERPRETER RESULTS"
-      forM_ (M.toList qs') $ \(pname, (_, p)) -> do
-        let results = Interp.interp p
-            total = S.size results
-            shown = take 10 $ S.toList results
-        putStrLn $ "Process: " ++ show pname ++ " (" ++ show total ++ " reachable states)"
-        forM_ shown $ \proc -> do
-          PT.putDoc (Render.prettyProcess proc)
-          putStrLn ""
-        when (total > 10) $ putStrLn $ "... (" ++ show (total - 10) ++ " more not shown)"
+      let mainPName = Identifier Somewhere "Main"
+      case M.lookup mainPName qs' of
+        Just (params, p) -> do
+          let results = Interp.interp qs' p
+              total = S.size results
+              shown = take 10 $ S.toList results
+          putStrLn $ "Process: Main (" ++ show total ++ " reachable states)"
+          forM_ (zip [1..] shown) $ \(i,proc) -> do
+            putStrLn (show i ++ ":")
+            PT.putDoc (Render.prettyProcess proc)
+            putStrLn ""
+          when (total > 10) $ putStrLn $ "... (" ++ show (total - 10) ++ " more not shown)"
+        Nothing -> putStrLn "Process 'Main' not found."
 
     handler :: [Flag] -> MyException -> IO ()
     handler args _ | Logging `elem` args = printWarning "FAILED"
